@@ -19,7 +19,8 @@ class SharepointConnector
         string $tenantId,
         string $clientId,
         string $clientSecret,
-        string $sharepointSite
+        string $sharepointSite,
+        ?string $sharepointHostname = null
     )
     {
         $authService = new AuthenticationService();
@@ -28,7 +29,7 @@ class SharepointConnector
 
         // Get siteId by site name
         $spSite = new SharepointService($accessToken);
-        $sharepointHostname = $spSite->requestSharepointHostname();
+        $sharepointHostname = $sharepointHostname ?? $spSite->requestSharepointHostname();
         $siteId = $spSite->requestSiteIdBySiteName($sharepointHostname, $sharepointSite);
 
         // Get driveId by site
